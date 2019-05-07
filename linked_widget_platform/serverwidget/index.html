@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Twitter widget</title>
+    <script type="text/javascript" src="http://linkedwidgets.org/widgets/WidgetHub.js"></script>
+    <script type="text/javascript">
+
+        var config = {
+            size: {width: 300, height: 125}, // the width, height of your widget (in pixels)
+            terminals: [ // define the position of your terminals
+                {"name": "input", "position": {"right": 1, "top": 1 / 2}, "type": "input"},
+                {"name": "output", "position": {"left": 1, "top": 1 / 2}, "type": "output"}
+            ],
+            serverId: "twidget", // server id
+            resizable: true // decide whether your widget is resizable or not
+        };
+
+        function getParam() {
+            return {
+                "q":        document.getElementById('q').value,
+                "limit":    document.getElementById("limit").value
+            };
+        }
+
+        var hub = new WidgetHub(config);
+        hub.setGetParam(getParam);
+    </script>
+</head>
+<body>
+<label for="q">search term:</label>
+<input type="text" id="q" value="ZAMG"/><br/>
+<label for="limit">limit result :</label>
+<select id="limit">
+    <option value="5" selected>5</option>
+    <option value="10">10</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+</select> item(s)
+</body>
+</html>

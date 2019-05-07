@@ -1,0 +1,60 @@
+@prefix : <http://pebbie.org/mashup/rml-source/seismic7d#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix met: <http://purl.org/linked-data/sdmx/2009/measure#>.
+@prefix dim: <http://purl.org/linked-data/sdmx/2009/dimension#>.
+@prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>.
+@prefix ont: <http://dbpedia.org/ontology/>.
+@prefix cube: <http://purl.org/linked-data/cube#>.
+
+:UntitledJSON1
+    rml:logicalSource
+            [ rml:iterator
+               "$.*";
+            rml:referenceFormulation
+               ql:JSONPath;
+            rml:source
+               "https://vownyourdata.zamg.ac.at:9500/api/data/plain?duration=7" ];
+    rr:predicateObjectMap
+            [ rr:objectMap
+               [ rml:reference "magnitude"; rr:datatype xsd:decimal ];
+            rr:predicate
+               met:obsValue ],
+            [ rr:objectMap
+               [ rml:reference "time"; rr:datatype xsd:dateTime ];
+            rr:predicate
+               dim:refTime ],
+            [ rr:objectMap
+                    [ rr:template
+                        "http://vownyourdata.zamg.ac.at/EQ/{auth}/{sourceId}/{time}/location";
+                    rr:termType
+                       rr:IRI ];
+            rr:predicate
+               wgs:location ],
+            [ rr:objectMap
+               [ rml:reference "alt"; rr:datatype xsd:decimal ];
+            rr:predicate
+               ont:elevation ];
+    rr:subjectMap
+            [ rr:class
+               cube:Observation;
+            rr:template
+               "http://vownyourdata.zamg.ac.at/EQ/{auth}/{sourceId}/{time}" ].
+:UntitledJSON5
+    rml:logicalSource
+            [ rml:iterator
+               "$.*";
+            rml:referenceFormulation
+               ql:JSONPath;
+            rml:source
+               "https://vownyourdata.zamg.ac.at:9500/api/data/plain?duration=7" ];
+    rr:predicateObjectMap
+           [ rr:objectMap [ rml:reference "lat" ]; rr:predicate wgs:lat ],
+           [ rr:objectMap [ rml:reference "long" ]; rr:predicate wgs:long ];
+    rr:subjectMap
+            [ rr:class
+               wgs:Point;
+            rr:template
+                "http://vownyourdata.zamg.ac.at/EQ/{auth}/{sourceId}/{time}/location" ].

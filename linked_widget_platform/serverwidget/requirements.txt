@@ -1,0 +1,6 @@
+autobahn==19.3.3
+crossbar==19.3.5
+python-twitter==3.5
+requests==2.21.0
+Twisted==18.9.0
+txaio==18.8.1
